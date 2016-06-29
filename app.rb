@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
-
 require 'sinatra'
+
+# set utf-8 encoding
+before do
+  headers "Content-Type" => "text/html; charset=utf-8"
+end
 
 get '/' do
   "Hello there, cowboy"
@@ -24,24 +28,7 @@ get '/template' do
 end
 
 post '/template' do
+  @name = "#{params[:post][:first_name]} #{params[:post][:last_name]}"
   @title = "#{params[:post][:first_name]}"
-  haml "Hello, #{params[:post][:first_name]} #{params[:post][:last_name]}"
+  haml :hello
 end
-
-__END__
-
-@@layout
-%html
-  %head
-    %title= @title
-  =yield
-
-@@fly
-.title
-  %h1= @title
-
-@@form
-%form{action: "/template", method: "POST"}
-  %input{type: "text", name: "post[first_name]", size: 20}
-  %input{type: "text", name: "post[last_name]", size: 20}
-  %input{type: "submit", value: "Say hi"}
