@@ -2,6 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require 'dm-core'
 require 'dm-migrations'
+require 'dm-timestamps'
+require './lib/authorization'
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/adserver.db")
 
@@ -24,6 +26,15 @@ class Ad
 
   has n, :clicks
 
+  def handle_upload
+    self.content_type = file[:type]
+    self.size = File.size(file[:tempfile])
+    path = File.join(Dir.pwd, '/public/ads', self.filename)
+    File.open(path, "wb") do |f|
+      f.write(file[:tempfile].read)
+    end
+  end
+
 end
 
 class Click
@@ -38,7 +49,13 @@ class Click
 
 end
 
-DataMapper.auto_upgrade!
+configure :development do
+  DataMapper.auto_upgrade!
+end
+
+helpers do
+  include Sinatra::Authorization
+end
 
 get '/' do
   @title = "Welcome to my humble server"
@@ -54,17 +71,20 @@ get '/ad' do
 end
 
 get '/list' do
+  require_admin
   @title = "List ads"
   @ads = Ad.all(order: [:created_at.desc])
   haml :list
 end
 
 get '/new' do
+  require_admin
   @title = "Create a new ad"
   haml :new
 end
 
 post '/create' do
+  require_admin
   @ad = Ad.new(params[:ad])
   @ad.content_type = params[:image][:type]
   @ad.size = File.size(params[:image][:tempfile])
@@ -80,6 +100,7 @@ post '/create' do
 end
 
 get '/delete/:id' do
+  require_admin
   ad = Ad.get(params[:id])
   unless ad.nil?
     path = File.join(Dir.pwd, "public/ads", ad.filename)
@@ -90,6 +111,7 @@ get '/delete/:id' do
 end
 
 get '/show/:id' do 
+  require_admin
   @ad = Ad.get(params[:id])
   if @ad 
     haml :show

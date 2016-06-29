@@ -2,9 +2,18 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.4.0)
+    airbrussh (1.0.2)
+      sshkit (>= 1.6.1, != 1.7.0)
     bcrypt (3.1.11)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
+    capistrano (3.5.0)
+      airbrussh (>= 1.0.0)
+      capistrano-harrow
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-harrow (0.5.2)
     data_objects (0.10.17)
       addressable (~> 2.1)
     datamapper (1.2.0)
@@ -54,17 +63,25 @@ GEM
     do_sqlite3 (0.10.17)
       data_objects (= 0.10.17)
     fastercsv (1.5.5)
+    i18n (0.7.0)
     json (1.8.3)
     json_pure (1.8.3)
     multi_json (1.12.1)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.2.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rake (11.2.2)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     sqlite3 (1.3.11)
+    sshkit (1.11.1)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     stringex (1.5.1)
     tilt (2.0.5)
     uuidtools (2.1.5)
@@ -73,6 +90,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  capistrano
   datamapper
   dm-sqlite-adapter
   do_sqlite3

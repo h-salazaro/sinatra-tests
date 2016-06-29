@@ -7,10 +7,11 @@
     %title= @title
   %body
     .wrapper
-      #nav
-        %a{href: '/list'} List
-        |
-        %a{href: '/new'} New
+      - if authorized?
+        #nav
+          %a{href: '/list'} List
+          |
+          %a{href: '/new'} New
       =yield
       #debug
         %p= "The time is #{Time.now.strftime('%I:%M:%S %p')}."
