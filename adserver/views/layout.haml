@@ -1,14 +1,17 @@
 %html
   %head
+    %meta{charset: "utf-8"}
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
     %link{rel: "stylesheet", href:"http://yui.yahooapis.com/pure/0.6.0/pure-min.css"}
+    %link{rel: "stylesheet", href:"/stylesheets/style.css"}
     %title= @title
   %body
-    :scss
-      .wrapper {
-        width: 85%;
-        margin: 0 auto;
-      }
     .wrapper
+      #nav
+        %a{href: '/list'} List
+        |
+        %a{href: '/new'} New
       =yield
-      %p= "Copyright &copy; #{Time.now.year}"
+      #debug
+        %p= "The time is #{Time.now.strftime('%I:%M:%S %p')}."
+        %p= "Running Sinatra version #{Sinatra::VERSION}"

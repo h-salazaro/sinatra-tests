@@ -1,0 +1,25 @@
+%h1= @title
+%form{action: '/create', method: 'post', id:'ad', enctype:'multipart/form-data', class: 'pure-form pure-form-stacked'}
+  %p
+    %label Title:
+    %input{type: "text", name: "ad[title]", id: "title"}
+  %p
+    %label Width:
+    %input{type: "text", name: "ad[width]", id: "width"}
+  %p
+    %label Height:
+    %input{type: "text", name: "ad[height]", id: "height"}
+  %p
+    %label Filename:
+    %input{type: "text", name: "ad[filename]", id: "filename"}
+  %p
+    %label URL:
+    %input{type: "url", name: "ad[url]", id: "url"}
+  %p
+    %label Content:
+    %input{type: "text", name: "ad[content]", id: "content"}
+  %p
+    %label Image File:
+    %input{type: "file", name: "image", id: "image"}
+  %p
+    %input{type: "submit", class:'pure-button'}

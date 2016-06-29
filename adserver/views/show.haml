@@ -1,0 +1,28 @@
+%h1= @title
+
+%p
+  %img{src: "/ads/#{@ad.filename}", height: "#{@ad.height}", width: "#{@ad.width}"}
+%p
+  %b Clicks
+  = @ad.clicks.size
+%p
+  %b Title
+  = @ad.title
+%p
+  %b Content
+  = @ad.content
+%p
+  %b Width
+  = @ad.width
+%p
+  %b Height
+  = @ad.height
+%p
+  %b Filename
+  = @ad.filename
+%p
+  %b Destination url
+  = @ad.url
+%p
+  %b Is active
+  = @ad.is_active 
