@@ -5,7 +5,8 @@ set :application, 'Adserver.h-salazaro.test'
 set :deploy_user, 'deploy'
 
 set :scm, :git
-set :repo_url, 'https://github.com/h-salazaro/sinatra-tests.git'
+set :repo_url, 'https://github.com/h-salazaro/sinatira-tests.git'
+
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
