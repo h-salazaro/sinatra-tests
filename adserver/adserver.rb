@@ -26,7 +26,7 @@ class Ad
 
   has n, :clicks
 
-  def handle_upload
+  def handle_upload( file )
     self.content_type = file[:type]
     self.size = File.size(file[:tempfile])
     path = File.join(Dir.pwd, '/public/ads', self.filename)
@@ -52,6 +52,7 @@ end
 configure :development do
   DataMapper.auto_upgrade!
 end
+
 
 helpers do
   include Sinatra::Authorization
@@ -86,8 +87,7 @@ end
 post '/create' do
   require_admin
   @ad = Ad.new(params[:ad])
-  @ad.content_type = params[:image][:type]
-  @ad.size = File.size(params[:image][:tempfile])
+  @ad.handle_upload(params[:image])
   if @ad.save
     path = File.join(Dir.pwd, "/public/ads", @ad.filename)
     File.open(path, "wb") do |f|
